@@ -1,5 +1,7 @@
+
 SELECT * FROM PortfolioProject..CovidDeaths
 ORDER BY 3, 4;
+
 
 --SELECT * FROM PortfolioProject..CovidVaccinations
 --ORDER BY 3, 4;
@@ -7,6 +9,8 @@ ORDER BY 3, 4;
 SELECT location, date, total_cases, new_cases, total_deaths
 FROM PortfolioProject..CovidDeaths
 ORDER BY 1, 2;
+
+
 
 -- Total Cases vs Total Deaths
 -- Shows likelihood of dying if you contract covid in your country
@@ -17,6 +21,8 @@ FROM PortfolioProject..CovidDeaths
 WHERE location = 'India'
 ORDER BY 1, 2;
 
+
+
 -- Total Cases vs Population
 -- Shows what % of population got infected
 
@@ -26,6 +32,8 @@ FROM PortfolioProject..CovidDeaths
 -- WHERE location = 'India'
 ORDER BY 1, 2;
 
+
+
 -- Looking at countries with Highest Infection rate compared to population
 
 SELECT location, Population, MAX(total_cases) AS HighestInfectionCount ,
@@ -34,6 +42,8 @@ FROM PortfolioProject..CovidDeaths
 -- WHERE location = 'India'
 GROUP BY Population, Location
 ORDER BY PercentageInfectionRate DESC;
+
+
 
 -- Countries with Highest Death Count per Population
 
@@ -45,6 +55,7 @@ GROUP BY Location
 ORDER BY TotalDeathCount DESC;
 
 
+
 --DeathCount per Population By Continent
 
 SELECT Continent, MAX(CAST(total_deaths AS INT)) AS Total_Deaths
@@ -52,13 +63,16 @@ FROM PortfolioProject..CovidDeaths
 WHERE continent IS NOT NULL
 GROUP BY continent;
 
---Global Numbers
 
+
+--Global Numbers
 
 SELECT SUM(new_cases) AS TotalCases, SUM(CAST(new_deaths AS INT)) AS TotalDeaths, 
 SUM(CAST(new_deaths AS INT))/SUM(new_cases)*100 AS DeathPercentage
 FROM PortfolioProject..CovidDeaths
 WHERE continent IS NOT NULL;
+
+
 
 -- Total Population vs Vaccination
 
@@ -77,6 +91,8 @@ WHERE dea.continent IS NOT NULL
 )
 SELECT *, (RollingPeopleVaccinated/Population)*100 AS RollingPercent
 FROM PopVsVac
+
+
 
 -- Now Using a Temp Table 
  
@@ -102,6 +118,7 @@ WHERE dea.continent IS NOT NULL
 
 SELECT *, (RollingPeopleVaccinated/Population)*100 AS RollingPercent
 FROM #PercentPopulationVaccinated
+
 
 
 -- Creating Views for later Visualizaion
